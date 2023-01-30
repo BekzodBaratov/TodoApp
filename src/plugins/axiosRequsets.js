@@ -10,14 +10,22 @@ export async function getLists() {
 export async function getOneList(id) {
   try {
     const res = await axios.get(`/lists/${id}`);
-    return res;
+    return res.data;
   } catch (e) {
     return e;
   }
 }
-export async function postList(data, id = "") {
+export async function postList(data) {
   try {
-    const res = await axios.post(`/lists${id}`, data);
+    const res = await axios.post(`/lists/`, data);
+    return res.data;
+  } catch (e) {
+    return e;
+  }
+}
+export async function patchList(data, id = "") {
+  try {
+    const res = await axios.patch(`/lists/${id}`, data);
     return res.data;
   } catch (e) {
     return e;

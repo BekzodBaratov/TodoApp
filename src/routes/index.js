@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import HomeView from "../view/Home.vue";
 import ListView from "../view/List.vue";
+import EditView from "../view/listEdit.vue";
+import NotFound from "../view/404.vue";
 
 const routes = [
   {
@@ -12,6 +15,16 @@ const routes = [
     path: "/list/:id",
     name: "list",
     component: ListView,
+  },
+  {
+    path: "/list/edit/:id",
+    name: "edit",
+    component: EditView,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "notFound",
+    component: NotFound,
   },
 ];
 

@@ -20,13 +20,23 @@
         </div>
         <ul class="lists">
           <li v-for="list in lists" :key="list.id" class="list pb-3">
-            <div class="bg-gray-100 rounded-md overflow-hidden flex justify-between group">
-              <RouterLink class="inline-block w-full" :to="'/list/' + list.id">
-                <p class="py-2 pl-2 line-clamp-1 max-w-[25rem] leading-loose">{{ list.list }}</p>
+            <div
+              :class="list.type ? 'bg-green-100' : 'bg-blue-100'"
+              class="rounded-md overflow-hidden flex justify-between group box-border"
+            >
+              <div
+                @click="handleType(list.id, !list.type)"
+                class="w-12 aspect-square box-border bg-primary text-white flex justify-center items-center"
+              >
+                <i v-if="!list.type" class="far fa-circle text-xl"></i>
+                <i v-if="list.type" class="far fa-circle-check text-xl"></i>
+              </div>
+              <RouterLink class="inline-block box-border w-full" :to="'/list/' + list.id">
+                <p class="py-2 pl-2 line-clamp-1 max-w-[24rem] leading-loose">{{ list.list }}</p>
               </RouterLink>
               <span
                 @click="() => delList(list.id)"
-                class="del hidden group-hover:flex text-white duration-200 cursor-pointer bg-red-500 p-2 w-12 rounded-md items-center justify-center"
+                class="delete md:opacity-0 group-hover:opacity-100 box-border text-white duration-200 cursor-pointer bg-red-500 p-2 w-12 rounded-md flex items-center justify-center"
               >
                 <i class="fas fa-trash"></i>
               </span>
@@ -47,8 +57,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import { getLists, delLists, postList } from "../plugins/axiosRequsets";
+import { ref, onMounted, watch } from "vue";
+import { getLists, delLists, postList, patchList } from "../plugins/axiosRequsets";
 import { v4 as uuidv4 } from "uuid";
 
 const newList = ref("");
@@ -69,6 +79,14 @@ async function handleList() {
     console.log(e);
   }
 }
+async function handleType(id, bool) {
+  try {
+    await patchList({ type: bool }, id);
+    lists.value = await getLists();
+  } catch (e) {
+    console.log(e);
+  }
+}
 onMounted(async () => (lists.value = await getLists()));
 
 async function delList(i) {
@@ -79,6 +97,10 @@ async function delList(i) {
     console.log(e);
   }
 }
+watch(
+  () => lists.value,
+  () => lists.value.reverse()
+);
 </script>
 
 <style scoped lang="scss">
