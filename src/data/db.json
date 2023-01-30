@@ -1,0 +1,28 @@
+{
+  "lists": [
+    {
+      "id": "d6548dab-12e6-4c9e-8616-49e1a4f8a30a",
+      "list": "asfdfs",
+      "created_at": "2023-01-30T16:26:39.193Z",
+      "type": false
+    },
+    {
+      "id": "b650e926-c369-4e61-ba78-dedad94e1b4e",
+      "list": "salom",
+      "created_at": "2023-01-30T16:35:09.381Z",
+      "type": false
+    },
+    {
+      "id": "a7d407fd-b525-4220-9fa9-9efcb87b100e",
+      "list": "ertage darsga borishim kerak",
+      "created_at": "2023-01-30T16:35:26.089Z",
+      "type": false
+    },
+    {
+      "id": "ad7bdac4-b131-493a-966c-0956b3b9c7c6",
+      "list": "salom",
+      "created_at": "2023-01-30T16:38:45.336Z",
+      "type": false
+    }
+  ]
+}
