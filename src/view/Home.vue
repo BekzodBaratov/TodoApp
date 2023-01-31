@@ -74,7 +74,9 @@ async function handleList() {
       type: false,
     });
     newList.value = "";
-    lists.value = await getLists();
+    const res = await getLists();
+    if (typeof res == "string") return;
+    lists.value = res;
   } catch (e) {
     console.log(e);
   }
@@ -87,7 +89,11 @@ async function handleType(id, bool) {
     console.log(e);
   }
 }
-onMounted(async () => (lists.value = await getLists()));
+onMounted(async () => {
+  const res = await getLists();
+  if (typeof res == "string") return;
+  lists.value = res;
+});
 
 async function delList(i) {
   try {
@@ -99,7 +105,12 @@ async function delList(i) {
 }
 watch(
   () => lists.value,
-  () => lists?.value?.reverse()
+  () => {
+    if (lists.value) {
+      lists?.value?.reverse();
+    }
+    console.log(lists.value);
+  }
 );
 </script>
 
