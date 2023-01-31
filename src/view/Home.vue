@@ -99,7 +99,7 @@ async function delList(i) {
 }
 watch(
   () => lists.value,
-  () => lists.value.reverse()
+  () => lists?.value?.reverse()
 );
 </script>
 
