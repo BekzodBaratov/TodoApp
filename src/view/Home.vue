@@ -21,7 +21,7 @@
         <ul class="lists">
           <li v-for="list in lists" :key="list.id" class="list pb-3">
             <div
-              :class="list.type ? 'bg-green-100' : 'bg-blue-100'"
+              :class="list.type ? 'bg-green-300' : 'bg-blue-300'"
               class="rounded-md overflow-hidden flex justify-between group box-border"
             >
               <div
