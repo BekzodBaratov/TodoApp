@@ -109,7 +109,6 @@ watch(
     if (lists.value) {
       lists?.value?.reverse();
     }
-    console.log(lists.value);
   }
 );
 </script>
