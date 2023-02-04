@@ -7,9 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "json-server --watch src/data/db.json"
+    "server": "json-server --watch src/data/db.json"
   },
   "dependencies": {
+    "@formkit/auto-animate": "^1.0.0-beta.6",
     "axios": "^1.2.6",
     "sass": "^1.57.1",
     "scss": "^0.2.4",

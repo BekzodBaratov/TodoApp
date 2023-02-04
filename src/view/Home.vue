@@ -18,7 +18,7 @@
             </button>
           </form>
         </div>
-        <ul class="lists">
+        <ul v-auto-animate class="lists">
           <li v-for="list in lists" :key="list.id" class="list pb-3">
             <div
               :class="list.type ? 'bg-green-300' : 'bg-blue-300'"
@@ -57,49 +57,68 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
-import { getLists, delLists, postList, patchList } from "../plugins/axiosRequsets";
+import { ref, watch } from "vue";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
+import soundAdd from "../assets/paper_add.wav";
+import soundTear from "../assets/paper_tear.wav";
+const addAudio = new Audio(soundAdd);
+const tearAudio = new Audio(soundTear);
 
 const newList = ref("");
 const lists = ref("");
 
 async function handleList() {
+  if (newList.value) {
+    alert("Enter a value in the input");
+    return;
+  }
   try {
-    if (!newList.value) return;
-    await postList({
+    addAudio.play();
+    const post = await axios.post(`lists`, {
       id: uuidv4(),
       list: newList.value,
       created_at: new Date(),
       type: false,
     });
     newList.value = "";
-    const res = await getLists();
-    if (typeof res == "string") return;
-    lists.value = res;
+    const res = await axios.get("lists");
+    lists.value = res.data;
   } catch (e) {
+    alert("type 'npm run dev' and 'npm run server' in the terminal to start the site!");
     console.log(e);
   }
 }
 async function handleType(id, bool) {
   try {
-    await patchList({ type: bool }, id);
-    lists.value = await getLists();
+    await axios.patch(`/lists/${id}`, { type: bool });
+    const res = await axios.get("/lists/");
+    lists.value = res.data;
   } catch (e) {
+    alert("type 'npm run dev' and 'npm run server' in the terminal to start the site!");
     console.log(e);
   }
 }
-onMounted(async () => {
-  const res = await getLists();
-  if (typeof res == "string") return;
-  lists.value = res;
-});
+
+async function fetchLists() {
+  try {
+    const res = await axios.get("/lists/");
+    lists.value = res.data;
+  } catch (e) {
+    alert("type 'npm run dev' and 'npm run server' in the terminal to start the site!");
+    console.log(e);
+  }
+}
+fetchLists();
 
 async function delList(i) {
   try {
-    await delLists(i);
-    lists.value = await getLists();
+    tearAudio.play();
+    await axios.delete(`/lists/${i}`);
+    const res = await axios.get(`lists`);
+    lists.value = res.data;
   } catch (e) {
+    alert("type 'npm run dev' and 'npm run server' in the terminal to start the site!");
     console.log(e);
   }
 }
