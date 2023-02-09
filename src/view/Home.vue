@@ -69,13 +69,13 @@ const newList = ref("");
 const lists = ref("");
 
 async function handleList() {
-  if (newList.value) {
+  if (!newList.value) {
     alert("Enter a value in the input");
     return;
   }
   try {
     addAudio.play();
-    const post = await axios.post(`lists`, {
+    await axios.post(`lists`, {
       id: uuidv4(),
       list: newList.value,
       created_at: new Date(),
