@@ -3,7 +3,7 @@
     <form class="space-y-3">
       <div class="bg-white p-6 rounded-lg">
         <textarea
-          class="outline-none max-w-[30rem] min-w-[20rem] h-full border border-gray-300 p-2 rounded-md"
+          class="outline-none max-w-[30rem] min-w-[20rem] h-72 border border-gray-300 p-2 rounded-md"
           type="text"
           v-model="list"
           name="name"
